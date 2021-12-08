@@ -1,27 +1,42 @@
 import com.sun.xml.internal.bind.v2.runtime.RuntimeUtil;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.LinkedList;
+
+import java.util.*;
 
 public class mytest {
     public static void main(String[] args) {
-        AVLTree t1 = new AVLTree();
 
+        for (int i = 0; i <100 ; i++) {
+            splitAndJoin();
+
+        }
+
+        AVLTree tree= new AVLTree();
+        tree.insert(3,"5");
+        tree.insert(2,"2");
+        tree.insert(4,"4");
+        tree.insert(1,"3");
+        tree.insert(5,"1");
+        AVLTree tr=new AVLTree();
+        tr.insert(1,"2");
+        AVLTree [] ttt=tree.split(1);
+        ttt[0].join(tr.root,ttt[1]);
+        int x=1;
+        int [] keys=ttt[0].keysToArray();
+        System.out.println(Arrays.toString(keys));
+
+        /*
         System.out.println("*** Test 7 - split ***");
         String abc = "abcdefghijklmnopqrstuvwxyz";
-        int n = 2;
+        int n = 1000;
         for (int i = 0; i < n; i++) {
-            t1.insert(i + 1, Character.toString(abc.charAt(i)));
+            t1.insert(i + 1,""+i );
         }
         System.out.println("Tree structure: " + toString(t1));
         System.out.println("Consistency check: " + isConsistentTree(t1));
         // System.out.println("Delete " + "(5)" + ": " + t1.delete(5));
         // System.out.println("Tree structure" + toString(t1));
 
-        int k = 1;
+        int k = 800;
         System.out.println("Split by key: " + k);
         AVLTree[] ts = t1.split(k);
         System.out.println("Tree structure of t1: " + toString(ts[0]));
@@ -39,9 +54,42 @@ public class mytest {
 
         System.out.println("************* FINISH *************");
         System.out.println();
+        */
 
     }
 
+    public static void splitAndJoin()
+    {
+
+        AVLTree tree=new AVLTree();
+        List<Integer> lst1=new ArrayList<Integer>();
+        for (int i=1; i<=10; i++ )
+        {
+            lst1.add(i);
+        }
+        System.out.println(lst1);
+        Collections.shuffle(lst1);
+        for (int i = 0; i < lst1.size() ; i++) {
+            tree.insert(lst1.get(i),""+i);
+        }
+        System.out.println(lst1);
+        Random number=new Random();
+        int x=number.nextInt(10)+1;
+        System.out.println("this is where split happens  "+x);
+        AVLTree [] trees= tree.split(x);
+        System.out.println("Tree structure: " + toString(trees[0]));
+        System.out.println("Consistency check: " + isConsistentTree(trees[1]));
+        AVLTree tt = new AVLTree();
+        tt.insert(x,"a");
+        AVLTree.IAVLNode d = tt.root;
+
+        checkLegal(trees[0]);
+        checkLegal(trees[1]);
+        trees[0].join(d,trees[1]);
+        System.out.println("Tree structure of t2: " + toString(trees[0]));
+        System.out.println("Consistency check: " + isConsistentTree(trees[0]));
+        checkLegal(trees[0]);
+    }
 
     public static int getRandomInt(Random number){
         int key = number.nextInt(499);
@@ -50,6 +98,7 @@ public class mytest {
     public static boolean checkIfBfs(AVLTree tree)
     {
         int [] keys=tree.keysToArray();
+        System.out.println("this is keys in order "+Arrays.toString(keys) );
         for (int i=0;i<keys.length-1;i++)
         {
             if (keys[i]>=keys[i+1])
@@ -70,7 +119,7 @@ public class mytest {
         if (tree.checkSize()==false)
         {
             System.out.println("size of tree is not good");
-            return false;
+            //return false;
         }
 
         if (checkIfBfs(tree) == false) {
@@ -83,6 +132,7 @@ public class mytest {
         }
         if(tree.checkMaxMin()==false)
         {
+            System.out.println();
             System.out.println("max or min not right");
 
             return false;
@@ -127,6 +177,7 @@ public class mytest {
             if (!checkLegal(tree)) {
                 return;
             }
+
 
         }
    }
