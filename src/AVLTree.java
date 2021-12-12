@@ -918,15 +918,17 @@ public class AVLTree {
             return n;
         }
         if (t.root.getKey() == -1) {//t is empty
+            int height=this.getRoot().getHeight();
             this.utilinsert(x);
-            return n;
+            return height+1;
         }
         if (this.root.getKey() == -1) { //this is empty
+            int height=t.getRoot().getHeight();
             t.utilinsert(x);
             this.root = t.root;
             this.max=t.max;
             this.min=t.min;
-            return n;
+            return height+1;
         }
         if(this.root.getHeight()==t.root.getHeight()) //Both trees have same height
         {

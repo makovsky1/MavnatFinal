@@ -4,11 +4,12 @@ import java.util.*;
 
 public class mytest {
     public static void main(String[] args) {
-
-        for (int i = 0; i <100 ; i++) {
+        for (int i = 0; i < 100; i++) {
             splitAndJoin();
+            randomTest();
 
         }
+
 
         AVLTree tree= new AVLTree();
         tree.insert(3,"5");
@@ -116,27 +117,13 @@ public class mytest {
     }
     public static boolean checkLegal(AVLTree tree)// checks if tree is legal
     {
-        if (tree.checkSize()==false)
-        {
-            System.out.println("size of tree is not good");
-            //return false;
-        }
+
 
         if (checkIfBfs(tree) == false) {
             System.out.println("Tree is not a legal Bfs Tree");
             return false;
         }
-        if (tree.checkB() == false) {
-            System.out.println("tree is not balanced");
-            return false;
-        }
-        if(tree.checkMaxMin()==false)
-        {
-            System.out.println();
-            System.out.println("max or min not right");
 
-            return false;
-        }
 
         return true;
 
